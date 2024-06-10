@@ -8,7 +8,7 @@ const config: GatsbyConfig = {
     },
     graphqlTypegen: true,
     plugins: [
-        `gatsby-plugin-emtion`
+        `gatsby-plugin-emotion`
     ],
 }
 

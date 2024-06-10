@@ -1,5 +1,7 @@
+import Layout from "components/layouts/Layout";
 import { graphql } from "gatsby";
 import React from "react";
+import GlobalStyle from "styles/GlobalStyle";
 
 type IndexPageType = {
   data: {
@@ -15,10 +17,14 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
   const { title } = props.data.site.siteMetadata;
 
   return (
-    <div>
-      <h1>Hello World</h1>
-      <h2>{title}</h2>
-    </div>
+    <>
+      <GlobalStyle />
+      <div style={{ display: "flex", height: "100%" }}>
+        <Layout />
+        {/* <Content/> */}
+        <h2>{title}</h2>
+      </div>
+    </>
   );
 };
 
