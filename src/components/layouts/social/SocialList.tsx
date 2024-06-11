@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { IoLogoGithub, IoLogoLinkedin, IoIosMail } from "react-icons/io";
+import SocialItem from "./SocialItem";
 
 const list = [
   {
-    href: "#",
+    href: "https://github.com/isdebrave",
     icon: IoLogoGithub,
   },
   {
@@ -18,24 +19,15 @@ const list = [
 ];
 
 const Ul = styled.ul`
-  & > a {
-    font-size: 30px;
-    margin: 0 10px;
-  }
+  display: flex;
 `;
 
 const SocialList = () => {
   return (
     <Ul>
-      <a href="#">
-        <IoLogoGithub />
-      </a>
-      <a href="#">
-        <IoLogoLinkedin />
-      </a>
-      <a href="#">
-        <IoIosMail />
-      </a>
+      {list.map((item) => (
+        <SocialItem key={item.href} href={item.href} icon={item.icon} />
+      ))}
     </Ul>
   );
 };

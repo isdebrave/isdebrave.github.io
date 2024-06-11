@@ -5,8 +5,8 @@ import {
   IoMdHome,
   IoMdPerson,
 } from "react-icons/io";
-import NavItem from "./NavItem";
 import styled from "@emotion/styled";
+import NavItem from "./NavItem";
 
 const list = [
   {
@@ -44,7 +44,12 @@ const NavList = () => {
   return (
     <Ul>
       {list.map((item) => (
-        <NavItem href={item.href} icon={item.icon} label={item.label} />
+        <NavItem
+          key={item.href}
+          href={item.href}
+          icon={item.icon}
+          label={item.label}
+        />
       ))}
     </Ul>
   );

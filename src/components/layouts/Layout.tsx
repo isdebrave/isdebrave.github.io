@@ -1,6 +1,6 @@
+import styled from "@emotion/styled";
 import React from "react";
 import NavList from "./nav/NavList";
-import styled from "@emotion/styled";
 import SocialList from "./social/SocialList";
 import Profile from "./profile/Profile";
 
