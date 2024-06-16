@@ -20,7 +20,6 @@ const ContentWrapper = styled.main`
   margin-left: 250px;
   padding: 70px 20px;
   flex: 1;
-  background-color: #eeebe0;
 
   & > h1 {
     text-align: center;
@@ -34,7 +33,13 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
   return (
     <>
       <GlobalStyle />
-      <div style={{ display: "flex", minHeight: "100vh" }}>
+      <div
+        style={{
+          display: "flex",
+          minHeight: "100vh",
+          backgroundColor: "#eeebe0",
+        }}
+      >
         <Layout />
         <ContentWrapper>
           <h1>{title}</h1>
