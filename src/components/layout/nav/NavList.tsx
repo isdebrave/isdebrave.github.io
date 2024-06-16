@@ -10,22 +10,22 @@ import NavItem from "./NavItem";
 
 const list = [
   {
-    href: "/",
+    to: "/",
     icon: IoMdHome,
     label: "All",
   },
   {
-    href: "/category",
+    to: "/category",
     icon: IoIosPricetags,
     label: "Category",
   },
   {
-    href: "/project",
+    to: "/project",
     icon: IoIosArchive,
     label: "Project",
   },
   {
-    href: "/about",
+    to: "/about",
     icon: IoMdPerson,
     label: "About",
   },
@@ -45,8 +45,8 @@ const NavList = () => {
     <Ul>
       {list.map((item) => (
         <NavItem
-          key={item.href}
-          href={item.href}
+          key={item.to}
+          to={item.to}
           icon={item.icon}
           label={item.label}
         />

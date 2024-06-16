@@ -1,14 +1,41 @@
 import type { GatsbyConfig } from "gatsby";
 
-
 const config: GatsbyConfig = {
     siteMetadata: {
-        title: `blog`,
+        title: `MY BLOG`,
         siteUrl: `https://www.yourdomain.tld`,
     },
     graphqlTypegen: true,
     plugins: [
-        `gatsby-plugin-emotion`
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `contents`,
+                path: `${__dirname}/contents`,
+            }
+        },
+        {
+            resolve: `gatsby-transformer-remark`,
+            options: {
+                plugins: [
+                    {
+                        resolve: `gatsby-remark-prismjs`,
+                        options: {
+                            classPrefix: 'language-',
+                        }
+                    },
+                    {
+                        resolve: `gatsby-remark-images`,
+                        options: {
+                            maxWidth: 768,
+                            quality: 100,
+                            withWebp: true,
+                        }
+                    },
+                ]
+            }
+        },
+        `gatsby-plugin-emotion`,
     ],
 }
 

@@ -1,9 +1,10 @@
 import React from "react";
 import { IconType } from "react-icons";
 import styled from "@emotion/styled";
+import { Link } from "gatsby";
 
 type NavItemType = {
-  href: string;
+  to: string;
   icon: IconType;
   label: string;
 };
@@ -31,14 +32,14 @@ const Li = styled.li`
 `;
 
 const NavItem: React.FC<NavItemType> = (props) => {
-  const { href, icon: Icon, label } = props;
+  const { to, icon: Icon, label } = props;
 
   return (
     <Li>
-      <a href={href}>
+      <Link to={to}>
         <Icon />
         <span>{label}</span>
-      </a>
+      </Link>
     </Li>
   );
 };

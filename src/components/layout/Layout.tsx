@@ -3,13 +3,18 @@ import React from "react";
 import NavList from "./nav/NavList";
 import SocialList from "./social/SocialList";
 import Profile from "./profile/Profile";
+import Footer from "components/Footer";
 
 const LayoutWrapper = styled.aside`
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 250px;
   height: 100%;
 
   & > div {
+    position: relative;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,10 +39,11 @@ const Layout = () => {
         src="https://png.pngtree.com/thumb_back/fh260/background/20230329/pngtree-summer-sea-vertical-cartoon-background-image_2120521.jpg"
         alt="background"
       />
-      <div style={{ height: "100%" }}>
+      <div>
         <Profile />
         <NavList />
         <SocialList />
+        <Footer />
       </div>
     </LayoutWrapper>
   );
