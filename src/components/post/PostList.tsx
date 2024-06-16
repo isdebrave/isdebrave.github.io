@@ -20,6 +20,9 @@ const PostList = () => {
         edges {
           node {
             id
+            fields {
+              slug
+            }
             frontmatter {
               title
               summary
@@ -40,6 +43,7 @@ const PostList = () => {
   const posts = data.allMarkdownRemark.edges as Array<{
     node: {
       id: string;
+      fields: { slug: string };
       frontmatter: PostItemType;
     };
   }>;
@@ -47,7 +51,11 @@ const PostList = () => {
   return (
     <Grid>
       {posts.map((post) => (
-        <PostItem key={post.node.id} {...post.node.frontmatter} />
+        <PostItem
+          key={post.node.id}
+          {...post.node.frontmatter}
+          link={post.node.fields.slug}
+        />
       ))}
     </Grid>
   );

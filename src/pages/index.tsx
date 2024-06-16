@@ -33,13 +33,7 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
   return (
     <>
       <GlobalStyle />
-      <div
-        style={{
-          display: "flex",
-          minHeight: "100vh",
-          backgroundColor: "#eeebe0",
-        }}
-      >
+      <div style={{ display: "flex" }}>
         <Layout />
         <ContentWrapper>
           <h1>{title}</h1>

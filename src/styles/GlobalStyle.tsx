@@ -13,6 +13,7 @@ const defaultStyle = css`
   #___gatsby,
   #gatsby-focus-wrapper {
     height: 100%;
+    background-color: #eeebe0;
   }
 
   li {

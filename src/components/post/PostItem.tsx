@@ -13,6 +13,7 @@ export type PostItemType = {
       gatsbyImageData: IGatsbyImageData;
     };
   };
+  link: string;
 };
 
 const PostItemWrapper = styled(Link)`
@@ -71,10 +72,11 @@ const PostItem: React.FC<PostItemType> = (props) => {
     thumbnail: {
       childImageSharp: { gatsbyImageData },
     },
+    link,
   } = props;
 
   return (
-    <PostItemWrapper to="#">
+    <PostItemWrapper to={link}>
       <ImageWrapper>
         <GatsbyImage image={gatsbyImageData} alt="cardBackground" />
       </ImageWrapper>
