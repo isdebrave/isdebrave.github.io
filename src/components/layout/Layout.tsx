@@ -4,6 +4,8 @@ import NavList from "./nav/NavList";
 import SocialList from "./social/SocialList";
 import Profile from "./profile/Profile";
 import Footer from "components/Footer";
+import { GatsbyImage } from "gatsby-plugin-image";
+import { graphql, useStaticQuery } from "gatsby";
 
 const LayoutWrapper = styled.aside`
   position: fixed;
@@ -23,8 +25,8 @@ const LayoutWrapper = styled.aside`
   }
 `;
 
-const Background = styled.img`
-  position: absolute;
+const Background = styled(GatsbyImage)`
+  position: absolute !important;
   z-index: -1;
   width: 100%;
   height: 100%;
@@ -33,12 +35,20 @@ const Background = styled.img`
 `;
 
 const Layout = () => {
+  const data = useStaticQuery(graphql`
+    {
+      file(name: { eq: "layout-background" }) {
+        childImageSharp {
+          gatsbyImageData(width: 203, height: 361, placeholder: DOMINANT_COLOR)
+        }
+      }
+    }
+  `);
+  const { gatsbyImageData } = data.file.childImageSharp;
+
   return (
     <LayoutWrapper>
-      <Background
-        src="https://png.pngtree.com/thumb_back/fh260/background/20230329/pngtree-summer-sea-vertical-cartoon-background-image_2120521.jpg"
-        alt="background"
-      />
+      <Background image={gatsbyImageData} alt="background" />
       <div>
         <Profile />
         <NavList />
