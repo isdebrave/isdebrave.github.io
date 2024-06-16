@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Link } from "gatsby";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React from "react";
 
 export type PostItemType = {
@@ -8,7 +9,9 @@ export type PostItemType = {
   date: string;
   categories: string[];
   thumbnail: {
-    publicURL: string;
+    childImageSharp: {
+      gatsbyImageData: IGatsbyImageData;
+    };
   };
 };
 
@@ -27,7 +30,7 @@ const PostItemWrapper = styled(Link)`
 const ImageWrapper = styled.div`
   height: 200px;
 
-  & > img {
+  .gatsby-image-wrapper {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -65,13 +68,15 @@ const PostItem: React.FC<PostItemType> = (props) => {
     categories,
     date,
     summary,
-    thumbnail: { publicURL },
+    thumbnail: {
+      childImageSharp: { gatsbyImageData },
+    },
   } = props;
 
   return (
     <PostItemWrapper to="#">
       <ImageWrapper>
-        <img src={publicURL} alt="cardBackground" />
+        <GatsbyImage image={gatsbyImageData} alt="cardBackground" />
       </ImageWrapper>
       <div style={{ padding: "15px", backgroundColor: "white" }}>
         <h2>{title}</h2>
