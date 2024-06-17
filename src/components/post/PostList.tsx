@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
-import PostItem, { PostItemType } from "./PostItem";
 import { graphql, useStaticQuery } from "gatsby";
+import PostItem, { PostItemType } from "./PostItem";
 
 const Grid = styled.div`
   display: grid;

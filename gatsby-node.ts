@@ -1,4 +1,4 @@
-import { graphql, type GatsbyNode } from "gatsby";
+import { type GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
 import path from "path";
 
@@ -29,4 +29,28 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, getNode, action
 // 게시글 페이지 만들기
 export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql, reporter }) => {
     const { createPage } = actions;
+
+    const result = await graphql<{ allMarkdownRemark: { edges: { node: { fields: { slug: string } } }[] } }>(`
+        {
+            allMarkdownRemark(
+                sort: [{ frontmatter: { date: DESC } }, { frontmatter: { title: DESC } }]
+            ) {
+                edges {
+                    node {
+                        fields {
+                            slug
+                        }
+                    }
+                }
+            }
+        }
+    `);
+
+    result.data?.allMarkdownRemark.edges.forEach(({ node }) => {
+        createPage({
+            path: node.fields.slug,
+            component: path.resolve(__dirname, "src/templates/postTemplate.tsx"),
+            context: { slug: node.fields.slug }
+        });
+    })
 }

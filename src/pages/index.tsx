@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import Layout from "components/layout/Layout";
+import Template from "components/common/Template";
 import PostList from "components/post/PostList";
 import { graphql } from "gatsby";
 import React from "react";
-import GlobalStyle from "styles/GlobalStyle";
+import { ContentWrapper } from "styles/ContentWrapper";
 
 type IndexPageType = {
   data: {
@@ -15,12 +15,7 @@ type IndexPageType = {
   };
 };
 
-const ContentWrapper = styled.main`
-  position: relative;
-  margin-left: 250px;
-  padding: 70px 20px;
-  flex: 1;
-
+const HomeWrapper = styled(ContentWrapper)`
   & > h1 {
     text-align: center;
     margin-bottom: 40px;
@@ -31,16 +26,12 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
   const { title } = props.data.site.siteMetadata;
 
   return (
-    <>
-      <GlobalStyle />
-      <div style={{ display: "flex" }}>
-        <Layout />
-        <ContentWrapper>
-          <h1>{title}</h1>
-          <PostList />
-        </ContentWrapper>
-      </div>
-    </>
+    <Template>
+      <HomeWrapper>
+        <h1>{title}</h1>
+        <PostList />
+      </HomeWrapper>
+    </Template>
   );
 };
 
