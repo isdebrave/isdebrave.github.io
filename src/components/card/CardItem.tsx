@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React from "react";
 
-export type PostItemType = {
+export type CardItemType = {
   title: string;
   summary: string;
   date: string;
@@ -16,7 +16,7 @@ export type PostItemType = {
   link: string;
 };
 
-const PostItemWrapper = styled(Link)`
+const CardItemWrapper = styled(Link)`
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
@@ -63,7 +63,7 @@ const Summary = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-const PostItem: React.FC<PostItemType> = (props) => {
+const CardItem: React.FC<CardItemType> = (props) => {
   const {
     title,
     categories,
@@ -76,7 +76,7 @@ const PostItem: React.FC<PostItemType> = (props) => {
   } = props;
 
   return (
-    <PostItemWrapper to={link}>
+    <CardItemWrapper to={link}>
       <ImageWrapper>
         <GatsbyImage image={gatsbyImageData} alt="cardBackground" />
       </ImageWrapper>
@@ -85,13 +85,13 @@ const PostItem: React.FC<PostItemType> = (props) => {
         <Date style={{ fontWeight: "400", opacity: "0.5" }}>{date}</Date>
         <CategoryList>
           {categories.map((category) => (
-            <CategoryItem>{category}</CategoryItem>
+            <CategoryItem key={category}>{category}</CategoryItem>
           ))}
         </CategoryList>
         <Summary>{summary}</Summary>
       </div>
-    </PostItemWrapper>
+    </CardItemWrapper>
   );
 };
 
-export default PostItem;
+export default CardItem;

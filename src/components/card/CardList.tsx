@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import PostItem, { PostItemType } from "./PostItem";
+import CardItem, { CardItemType } from "./CardItem";
 
 const Grid = styled.div`
   display: grid;
@@ -11,7 +11,7 @@ const Grid = styled.div`
   margin: 0 auto;
 `;
 
-const PostList = () => {
+const CardList = () => {
   const data = useStaticQuery(graphql`
     {
       allMarkdownRemark(
@@ -40,25 +40,25 @@ const PostList = () => {
     }
   `);
 
-  const posts = data.allMarkdownRemark.edges as Array<{
+  const cardList = data.allMarkdownRemark.edges as Array<{
     node: {
       id: string;
       fields: { slug: string };
-      frontmatter: PostItemType;
+      frontmatter: CardItemType;
     };
   }>;
 
   return (
     <Grid>
-      {posts.map((post) => (
-        <PostItem
-          key={post.node.id}
-          {...post.node.frontmatter}
-          link={post.node.fields.slug}
+      {cardList.map((card) => (
+        <CardItem
+          key={card.node.id}
+          {...card.node.frontmatter}
+          link={card.node.fields.slug}
         />
       ))}
     </Grid>
   );
 };
 
-export default PostList;
+export default CardList;

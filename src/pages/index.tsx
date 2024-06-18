@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import CardList from "components/card/CardList";
 import Template from "components/common/Template";
-import PostList from "components/post/PostList";
 import { graphql } from "gatsby";
 import React from "react";
 import { ContentWrapper } from "styles/ContentWrapper";
@@ -29,7 +29,7 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
     <Template>
       <HomeWrapper>
         <h1>{title}</h1>
-        <PostList />
+        <CardList />
       </HomeWrapper>
     </Template>
   );

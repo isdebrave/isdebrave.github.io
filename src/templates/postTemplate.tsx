@@ -1,17 +1,40 @@
-import styled from "@emotion/styled";
-import Template from "components/common/Template";
-import { graphql } from "gatsby";
 import React from "react";
+import { graphql } from "gatsby";
+import { CardItemType } from "components/card/CardItem";
+import Template from "components/common/Template";
+import PostContent from "components/post/PostContent";
+import PostImage from "components/post/PostImage";
+import PostInfo from "components/post/PostInfo";
 import { ContentWrapper } from "styles/ContentWrapper";
 
-type PostTemplateType = {};
+type PostTemplateType = {
+  data: {
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          html: string;
+          frontmatter: CardItemType;
+        };
+      }[];
+    };
+  };
+};
 
 const PostTemplate: React.FC<PostTemplateType> = (props) => {
-  console.log(props);
+  const { frontmatter, html } = props.data.allMarkdownRemark.edges[0].node;
+  const { gatsbyImageData } = frontmatter.thumbnail.childImageSharp;
 
   return (
     <Template>
-      <ContentWrapper>Post Template</ContentWrapper>
+      <ContentWrapper>
+        <PostInfo
+          title={frontmatter.title}
+          date={frontmatter.date}
+          categories={frontmatter.categories}
+        />
+        <PostImage image={gatsbyImageData} />
+        <PostContent html={html} />
+      </ContentWrapper>
     </Template>
   );
 };
@@ -31,7 +54,7 @@ export const queryMarkdownDataBySlug = graphql`
             categories
             thumbnail {
               childImageSharp {
-                gatsbyImageData
+                gatsbyImageData(width: 768, height: 400)
               }
             }
           }
