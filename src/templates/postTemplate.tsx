@@ -5,6 +5,7 @@ import Template from "components/common/Template";
 import PostContent from "components/post/PostContent";
 import PostImage from "components/post/PostImage";
 import PostInfo from "components/post/PostInfo";
+import Comment from "components/comment/Comment";
 import { ContentWrapper } from "styles/ContentWrapper";
 
 type PostTemplateType = {
@@ -34,6 +35,7 @@ const PostTemplate: React.FC<PostTemplateType> = (props) => {
         />
         <PostImage image={gatsbyImageData} />
         <PostContent html={html} />
+        <Comment />
       </ContentWrapper>
     </Template>
   );
