@@ -1,16 +1,25 @@
 import styled from "@emotion/styled";
+import { CardItemType } from "components/card/CardItem";
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import { graphql } from "gatsby";
 import React from "react";
-import { ContentWrapper } from "styles/ContentWrapper";
+import { ContentWrapper } from "styles/index";
+import { SiteType } from "types";
 
 type IndexPageType = {
   data: {
-    site: {
-      siteMetadata: {
-        title: string;
-      };
+    site: SiteType;
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          id: string;
+          fields: {
+            slug: string;
+          };
+          frontmatter: CardItemType;
+        };
+      }[];
     };
   };
 };
@@ -24,12 +33,13 @@ const HomeWrapper = styled(ContentWrapper)`
 
 const IndexPage: React.FC<IndexPageType> = (props) => {
   const { title } = props.data.site.siteMetadata;
+  const { edges } = props.data.allMarkdownRemark;
 
   return (
     <Template>
       <HomeWrapper>
         <h1>{title}</h1>
-        <CardList />
+        <CardList edges={edges} />
       </HomeWrapper>
     </Template>
   );
@@ -37,11 +47,34 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
 
 export default IndexPage;
 
-export const getPostList = graphql`
+export const getHomeListData = graphql`
   {
     site {
       siteMetadata {
         title
+      }
+    }
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date, frontmatter___title] }
+    ) {
+      edges {
+        node {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            summary
+            date(formatString: "YYYY.MM.DD")
+            categories
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(width: 768, height: 400)
+              }
+            }
+          }
+        }
       }
     }
   }

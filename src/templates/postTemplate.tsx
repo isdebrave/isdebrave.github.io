@@ -6,7 +6,7 @@ import PostContent from "components/post/PostContent";
 import PostImage from "components/post/PostImage";
 import PostInfo from "components/post/PostInfo";
 import Comment from "components/comment/Comment";
-import { ContentWrapper } from "styles/ContentWrapper";
+import { ContentWrapper } from "styles/index";
 
 type PostTemplateType = {
   data: {

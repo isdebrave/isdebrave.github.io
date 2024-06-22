@@ -5,12 +5,28 @@ import Template from "components/common/Template";
 import { Link, graphql, useStaticQuery } from "gatsby";
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
-import { ContentWrapper } from "styles/ContentWrapper";
+import { ContentWrapper } from "styles/index";
 
 type TagListType = {
   selectedTag: string;
   tagList: {
     [key: string]: number;
+  };
+};
+
+type CategoryPageType = {
+  data: {
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          id: string;
+          fields: {
+            slug: string;
+          };
+          frontmatter: CardItemType;
+        };
+      }[];
+    };
   };
 };
 
@@ -28,37 +44,10 @@ const CategoryItem = styled.li`
   border-radius: 5px;
 `;
 
-const CategoryPage = () => {
+const CategoryPage: React.FC<CategoryPageType> = (props) => {
+  const { edges } = props.data.allMarkdownRemark;
   const [tagList, setTagList] = useState<TagListType["tagList"]>({});
   const [selectedTag, setSelectedTag] = useState("");
-
-  const data = useStaticQuery(graphql`
-    {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date, frontmatter___title] }
-      ) {
-        edges {
-          node {
-            id
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              summary
-              date(formatString: "YYYY.MM.DD")
-              categories
-              thumbnail {
-                childImageSharp {
-                  gatsbyImageData(width: 768, height: 400)
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
 
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);
@@ -70,14 +59,6 @@ const CategoryPage = () => {
 
   useEffect(() => {
     const list: TagListType["tagList"] = { All: 0 };
-
-    const edges = data.allMarkdownRemark.edges as Array<{
-      node: {
-        id: string;
-        fields: { slug: string };
-        frontmatter: CardItemType;
-      };
-    }>;
 
     for (const edge of edges) {
       const categories = edge.node.frontmatter.categories;
@@ -106,10 +87,38 @@ const CategoryPage = () => {
             </CategoryItem>
           ))}
         </CategoryList>
-        <CardList selectedTag={selectedTag} />
+        <CardList selectedTag={selectedTag} edges={edges} />
       </ContentWrapper>
     </Template>
   );
 };
 
 export default CategoryPage;
+
+export const getCategoryListData = graphql`
+  {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date, frontmatter___title] }
+    ) {
+      edges {
+        node {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            summary
+            date(formatString: "YYYY.MM.DD")
+            categories
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(width: 768, height: 400)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

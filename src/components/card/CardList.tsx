@@ -1,10 +1,18 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { graphql, useStaticQuery } from "gatsby";
 import CardItem, { CardItemType } from "./CardItem";
 
 type CardListType = {
   selectedTag?: string;
+  edges: {
+    node: {
+      id: string;
+      fields: {
+        slug: string;
+      };
+      frontmatter: CardItemType;
+    };
+  }[];
 };
 
 const Grid = styled.div`
@@ -16,66 +24,38 @@ const Grid = styled.div`
 `;
 
 const CardList: React.FC<CardListType> = (props) => {
-  const { selectedTag } = props;
+  const { selectedTag, edges } = props;
 
-  const data = useStaticQuery(graphql`
-    {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date, frontmatter___title] }
-      ) {
-        edges {
-          node {
-            id
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              summary
-              date(formatString: "YYYY.MM.DD")
-              categories
-              thumbnail {
-                childImageSharp {
-                  gatsbyImageData(width: 768, height: 400)
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  let list: Array<{
+  let newList: Array<{
     node: {
       id: string;
       fields: { slug: string };
       frontmatter: CardItemType;
     };
   }> = [];
-  const edges = data.allMarkdownRemark.edges as Array<{
-    node: {
-      id: string;
-      fields: { slug: string };
-      frontmatter: CardItemType;
-    };
-  }>;
+  // const edges = data.allMarkdownRemark.edges as Array<{
+  //   node: {
+  //     id: string;
+  //     fields: { slug: string };
+  //     frontmatter: CardItemType;
+  //   };
+  // }>;
 
   if (selectedTag && selectedTag != "All") {
-    list = edges.filter((edge) => {
+    newList = edges.filter((edge) => {
       return edge.node.frontmatter.categories.includes(selectedTag);
     });
   } else {
-    list = edges;
+    newList = edges;
   }
 
   return (
     <Grid>
-      {list.map((edge) => (
+      {newList.map((item) => (
         <CardItem
-          key={edge.node.id}
-          {...edge.node.frontmatter}
-          link={edge.node.fields.slug}
+          key={item.node.id}
+          {...item.node.frontmatter}
+          link={item.node.fields.slug}
         />
       ))}
     </Grid>
