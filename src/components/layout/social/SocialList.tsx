@@ -5,14 +5,17 @@ import SocialItem from "./SocialItem";
 
 const list = [
   {
+    id: Math.random().toString(36).slice(2, 11),
     href: "https://github.com/isdebrave",
     icon: IoLogoGithub,
   },
   {
+    id: Math.random().toString(36).slice(2, 11),
     href: "#",
     icon: IoLogoLinkedin,
   },
   {
+    id: Math.random().toString(36).slice(2, 11),
     href: "#",
     icon: IoIosMail,
   },
@@ -26,7 +29,7 @@ const SocialList = () => {
   return (
     <Ul>
       {list.map((item) => (
-        <SocialItem key={item.href} href={item.href} icon={item.icon} />
+        <SocialItem key={item.id} href={item.href} icon={item.icon} />
       ))}
     </Ul>
   );

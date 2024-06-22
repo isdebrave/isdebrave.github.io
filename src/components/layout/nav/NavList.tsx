@@ -10,21 +10,25 @@ import NavItem from "./NavItem";
 
 const list = [
   {
+    id: Math.random().toString(36).slice(2, 11),
     to: "/",
     icon: IoMdHome,
     label: "All",
   },
   {
+    id: Math.random().toString(36).slice(2, 11),
     to: "/category",
     icon: IoIosPricetags,
     label: "Category",
   },
   {
+    id: Math.random().toString(36).slice(2, 11),
     to: "/project",
     icon: IoIosArchive,
     label: "Project",
   },
   {
+    id: Math.random().toString(36).slice(2, 11),
     to: "/about",
     icon: IoMdPerson,
     label: "About",
@@ -45,7 +49,7 @@ const NavList = () => {
     <Ul>
       {list.map((item) => (
         <NavItem
-          key={item.to}
+          key={item.id}
           to={item.to}
           icon={item.icon}
           label={item.label}
