@@ -6,7 +6,7 @@ import PostContent from "components/post/PostContent";
 import PostImage from "components/post/PostImage";
 import PostInfo from "components/post/PostInfo";
 import Comment from "components/comment/Comment";
-import { ContentWrapper } from "styles/index";
+import { Wrapper } from "styles/index";
 
 type PostTemplateType = {
   data: {
@@ -27,7 +27,7 @@ const PostTemplate: React.FC<PostTemplateType> = (props) => {
 
   return (
     <Template>
-      <ContentWrapper>
+      <Wrapper>
         <PostInfo
           title={frontmatter.title}
           date={frontmatter.date}
@@ -36,15 +36,15 @@ const PostTemplate: React.FC<PostTemplateType> = (props) => {
         <PostImage image={gatsbyImageData} />
         <PostContent html={html} />
         <Comment />
-      </ContentWrapper>
+      </Wrapper>
     </Template>
   );
 };
 
 export default PostTemplate;
 
-export const queryMarkdownDataBySlug = graphql`
-  query queryMarkdownDataBySlug($slug: String) {
+export const getPostData = graphql`
+  query postQueryData($slug: String) {
     allMarkdownRemark(filter: { fields: { slug: { eq: $slug } } }) {
       edges {
         node {

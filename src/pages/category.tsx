@@ -4,7 +4,7 @@ import Template from "components/common/Template";
 import { Link, graphql } from "gatsby";
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
-import { ContentWrapper } from "styles/index";
+import { Wrapper } from "styles/index";
 import { AllMarkdownRemarkType } from "types";
 
 type TagListType = {
@@ -15,6 +15,9 @@ type TagListType = {
 };
 
 type CategoryPageType = {
+  location: {
+    search: string;
+  };
   data: {
     allMarkdownRemark: AllMarkdownRemarkType;
   };
@@ -35,17 +38,19 @@ const CategoryItem = styled.li`
 `;
 
 const CategoryPage: React.FC<CategoryPageType> = (props) => {
+  const { search } = props.location;
   const { edges } = props.data.allMarkdownRemark;
+
   const [tagList, setTagList] = useState<TagListType["tagList"]>({});
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectedTag, setSelectedTag] = useState("All");
 
   useEffect(() => {
-    const parsed = queryString.parse(window.location.search);
-    const tag =
-      typeof parsed.tag !== "string" || !parsed.tag ? "All" : parsed.tag;
+    const parsed = queryString.parse(search);
 
-    setSelectedTag(tag);
-  }, [window.location.search]);
+    if (typeof parsed.tag === "string") {
+      setSelectedTag(parsed.tag);
+    }
+  }, [search]);
 
   useEffect(() => {
     const list: TagListType["tagList"] = { All: 0 };
@@ -69,7 +74,7 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
 
   return (
     <Template>
-      <ContentWrapper>
+      <Wrapper>
         <CategoryList>
           {Object.entries(tagList).map(([tag, count]) => (
             <CategoryItem key={tag}>
@@ -77,8 +82,8 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
             </CategoryItem>
           ))}
         </CategoryList>
-        <CardList selectedTag={selectedTag} edges={edges} />
-      </ContentWrapper>
+        <CardList edges={edges} selectedTag={selectedTag} />
+      </Wrapper>
     </Template>
   );
 };

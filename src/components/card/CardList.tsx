@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { EdgesType } from "types";
 import CardItem from "./CardItem";
 
@@ -19,19 +19,23 @@ const Grid = styled.div`
 const CardList: React.FC<CardListType> = (props) => {
   const { selectedTag, edges } = props;
 
-  let newList: EdgesType[] = [];
+  const [list, setList] = useState<EdgesType[]>([]);
 
-  if (selectedTag != "All") {
-    newList = edges.filter((edge) => {
-      return edge.node.frontmatter.categories.includes(selectedTag);
-    });
-  } else {
-    newList = edges;
-  }
+  useEffect(() => {
+    let selectedList = edges;
+
+    if (selectedTag != "All") {
+      selectedList = edges.filter((edge) => {
+        return edge.node.frontmatter.categories.includes(selectedTag);
+      });
+    }
+
+    setList(selectedList);
+  }, [selectedTag]);
 
   return (
     <Grid>
-      {newList.map((item) => (
+      {list.map((item) => (
         <CardItem
           key={item.node.id}
           {...item.node.frontmatter}

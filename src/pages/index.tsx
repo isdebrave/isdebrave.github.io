@@ -3,7 +3,7 @@ import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import { graphql } from "gatsby";
 import React from "react";
-import { ContentWrapper } from "styles/index";
+import { Wrapper } from "styles/index";
 import { AllMarkdownRemarkType, SiteType } from "types";
 
 type IndexPageType = {
@@ -13,7 +13,7 @@ type IndexPageType = {
   };
 };
 
-const HomeWrapper = styled(ContentWrapper)`
+const HomeWrapper = styled(Wrapper)`
   & > h1 {
     text-align: center;
     margin-bottom: 40px;
