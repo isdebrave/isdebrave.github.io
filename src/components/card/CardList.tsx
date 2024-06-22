@@ -3,6 +3,10 @@ import React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import CardItem, { CardItemType } from "./CardItem";
 
+type CardListType = {
+  selectedTag?: string;
+};
+
 const Grid = styled.div`
   display: grid;
   width: 768px;
@@ -11,7 +15,9 @@ const Grid = styled.div`
   margin: 0 auto;
 `;
 
-const CardList = () => {
+const CardList: React.FC<CardListType> = (props) => {
+  const { selectedTag } = props;
+
   const data = useStaticQuery(graphql`
     {
       allMarkdownRemark(
@@ -40,7 +46,14 @@ const CardList = () => {
     }
   `);
 
-  const cardList = data.allMarkdownRemark.edges as Array<{
+  let list: Array<{
+    node: {
+      id: string;
+      fields: { slug: string };
+      frontmatter: CardItemType;
+    };
+  }> = [];
+  const edges = data.allMarkdownRemark.edges as Array<{
     node: {
       id: string;
       fields: { slug: string };
@@ -48,13 +61,21 @@ const CardList = () => {
     };
   }>;
 
+  if (selectedTag && selectedTag != "All") {
+    list = edges.filter((edge) => {
+      return edge.node.frontmatter.categories.includes(selectedTag);
+    });
+  } else {
+    list = edges;
+  }
+
   return (
     <Grid>
-      {cardList.map((card) => (
+      {list.map((edge) => (
         <CardItem
-          key={card.node.id}
-          {...card.node.frontmatter}
-          link={card.node.fields.slug}
+          key={edge.node.id}
+          {...edge.node.frontmatter}
+          link={edge.node.fields.slug}
         />
       ))}
     </Grid>
