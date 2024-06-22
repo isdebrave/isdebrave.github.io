@@ -13,11 +13,11 @@ const list = [
     id: Math.random().toString(36).slice(2, 11),
     to: "/",
     icon: IoMdHome,
-    label: "All",
+    label: "Home",
   },
   {
     id: Math.random().toString(36).slice(2, 11),
-    to: "/category",
+    to: "/category?tag=All",
     icon: IoIosPricetags,
     label: "Category",
   },

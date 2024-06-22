@@ -7,4 +7,4 @@ export const Wrapper = styled.main`
   margin-left: 250px;
   padding: 70px 20px;
   flex: 1;
-`
+`;

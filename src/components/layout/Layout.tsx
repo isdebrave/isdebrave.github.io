@@ -14,7 +14,7 @@ const LayoutWrapper = styled.aside`
   width: 250px;
   height: 100%;
 
-  & > div {
+  & > nav {
     position: relative;
     height: 100%;
     display: flex;
@@ -49,12 +49,12 @@ const Layout = () => {
   return (
     <LayoutWrapper>
       <Background image={gatsbyImageData} alt="background" />
-      <div>
+      <nav>
         <Profile />
         <NavList />
         <SocialList />
         <Footer />
-      </div>
+      </nav>
     </LayoutWrapper>
   );
 };

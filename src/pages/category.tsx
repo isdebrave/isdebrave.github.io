@@ -23,6 +23,13 @@ type CategoryPageType = {
   };
 };
 
+const CategoryWrapper = styled(Wrapper)`
+  & > h1 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+`;
+
 const CategoryList = styled.ul`
   margin: 10px 0;
   display: flex;
@@ -74,16 +81,19 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
 
   return (
     <Template>
-      <Wrapper>
+      <CategoryWrapper>
+        <h1>
+          Tags &gt; {selectedTag} &gt; {tagList[selectedTag]} Posts
+        </h1>
         <CategoryList>
-          {Object.entries(tagList).map(([tag, count]) => (
+          {Object.keys(tagList).map((tag) => (
             <CategoryItem key={tag}>
               <Link to={`/category?tag=${tag}`}>{tag}</Link>
             </CategoryItem>
           ))}
         </CategoryList>
         <CardList edges={edges} selectedTag={selectedTag} />
-      </Wrapper>
+      </CategoryWrapper>
     </Template>
   );
 };
