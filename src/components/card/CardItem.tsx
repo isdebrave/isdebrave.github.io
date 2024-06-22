@@ -1,22 +1,12 @@
 import styled from "@emotion/styled";
 import { Link } from "gatsby";
-import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
+import { FrontmatterType } from "types";
 
-export type CardItemType = {
-  title: string;
-  summary: string;
-  date: string;
-  categories: string[];
-  thumbnail: {
-    childImageSharp: {
-      gatsbyImageData: IGatsbyImageData;
-    };
-  };
-  link: string;
-};
+type CardItemType = FrontmatterType & { link: string };
 
-const CardItemWrapper = styled(Link)`
+const CardItemContainer = styled(Link)`
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
@@ -76,13 +66,13 @@ const CardItem: React.FC<CardItemType> = (props) => {
   } = props;
 
   return (
-    <CardItemWrapper to={link}>
+    <CardItemContainer to={link}>
       <ImageWrapper>
         <GatsbyImage image={gatsbyImageData} alt="cardBackground" />
       </ImageWrapper>
       <div style={{ padding: "15px", backgroundColor: "white" }}>
         <h2>{title}</h2>
-        <Date style={{ fontWeight: "400", opacity: "0.5" }}>{date}</Date>
+        <Date>{date}</Date>
         <CategoryList>
           {categories.map((category) => (
             <CategoryItem key={category}>{category}</CategoryItem>
@@ -90,7 +80,7 @@ const CardItem: React.FC<CardItemType> = (props) => {
         </CategoryList>
         <Summary>{summary}</Summary>
       </div>
-    </CardItemWrapper>
+    </CardItemContainer>
   );
 };
 

@@ -19,18 +19,16 @@ const Grid = styled.div`
 const CardList: React.FC<CardListType> = (props) => {
   const { selectedTag, edges } = props;
 
-  const [list, setList] = useState<EdgesType[]>([]);
+  const [list, setList] = useState(edges);
 
   useEffect(() => {
-    let selectedList = edges;
-
     if (selectedTag != "All") {
-      selectedList = edges.filter((edge) => {
+      const selectedList = edges.filter((edge) => {
         return edge.node.frontmatter.categories.includes(selectedTag);
       });
-    }
 
-    setList(selectedList);
+      setList(selectedList);
+    }
   }, [selectedTag]);
 
   return (

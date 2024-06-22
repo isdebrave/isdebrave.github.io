@@ -1,12 +1,12 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { CardItemType } from "components/card/CardItem";
 import Template from "components/common/Template";
 import PostContent from "components/post/PostContent";
 import PostImage from "components/post/PostImage";
 import PostInfo from "components/post/PostInfo";
 import Comment from "components/comment/Comment";
 import { Wrapper } from "styles/index";
+import { FrontmatterType } from "types";
 
 type PostTemplateType = {
   data: {
@@ -14,7 +14,7 @@ type PostTemplateType = {
       edges: {
         node: {
           html: string;
-          frontmatter: CardItemType;
+          frontmatter: FrontmatterType;
         };
       }[];
     };

@@ -30,5 +30,4 @@ export type FrontmatterType = {
             gatsbyImageData: IGatsbyImageData;
         };
     };
-    link: string;
 }

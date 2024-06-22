@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "gatsby";
 import React from "react";
 
 type PostInfoType = {
@@ -29,8 +30,10 @@ const PostInfo: React.FC<PostInfoType> = (props) => {
       <h1>{title}</h1>
       <span>{date}</span>
       <CategoryList>
-        {categories.map((category) => (
-          <CategoryItem key={category}>{category}</CategoryItem>
+        {categories.map((tag) => (
+          <CategoryItem key={tag}>
+            <Link to={`/category?tag=${tag}`}>{tag}</Link>
+          </CategoryItem>
         ))}
       </CategoryList>
     </div>
