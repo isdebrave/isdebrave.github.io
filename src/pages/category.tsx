@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { CardItemType } from "components/card/CardItem";
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
-import { Link, graphql, useStaticQuery } from "gatsby";
+import { Link, graphql } from "gatsby";
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { ContentWrapper } from "styles/index";
+import { AllMarkdownRemarkType } from "types";
 
 type TagListType = {
   selectedTag: string;
@@ -16,17 +16,7 @@ type TagListType = {
 
 type CategoryPageType = {
   data: {
-    allMarkdownRemark: {
-      edges: {
-        node: {
-          id: string;
-          fields: {
-            slug: string;
-          };
-          frontmatter: CardItemType;
-        };
-      }[];
-    };
+    allMarkdownRemark: AllMarkdownRemarkType;
   };
 };
 

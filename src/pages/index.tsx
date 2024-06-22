@@ -1,26 +1,15 @@
 import styled from "@emotion/styled";
-import { CardItemType } from "components/card/CardItem";
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import { graphql } from "gatsby";
 import React from "react";
 import { ContentWrapper } from "styles/index";
-import { SiteType } from "types";
+import { AllMarkdownRemarkType, SiteType } from "types";
 
 type IndexPageType = {
   data: {
     site: SiteType;
-    allMarkdownRemark: {
-      edges: {
-        node: {
-          id: string;
-          fields: {
-            slug: string;
-          };
-          frontmatter: CardItemType;
-        };
-      }[];
-    };
+    allMarkdownRemark: AllMarkdownRemarkType;
   };
 };
 
@@ -39,7 +28,7 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
     <Template>
       <HomeWrapper>
         <h1>{title}</h1>
-        <CardList edges={edges} />
+        <CardList edges={edges} selectedTag="All" />
       </HomeWrapper>
     </Template>
   );

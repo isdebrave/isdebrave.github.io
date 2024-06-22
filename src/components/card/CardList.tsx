@@ -1,18 +1,11 @@
 import styled from "@emotion/styled";
 import React from "react";
-import CardItem, { CardItemType } from "./CardItem";
+import { EdgesType } from "types";
+import CardItem from "./CardItem";
 
 type CardListType = {
-  selectedTag?: string;
-  edges: {
-    node: {
-      id: string;
-      fields: {
-        slug: string;
-      };
-      frontmatter: CardItemType;
-    };
-  }[];
+  selectedTag: string;
+  edges: EdgesType[];
 };
 
 const Grid = styled.div`
@@ -26,22 +19,9 @@ const Grid = styled.div`
 const CardList: React.FC<CardListType> = (props) => {
   const { selectedTag, edges } = props;
 
-  let newList: Array<{
-    node: {
-      id: string;
-      fields: { slug: string };
-      frontmatter: CardItemType;
-    };
-  }> = [];
-  // const edges = data.allMarkdownRemark.edges as Array<{
-  //   node: {
-  //     id: string;
-  //     fields: { slug: string };
-  //     frontmatter: CardItemType;
-  //   };
-  // }>;
+  let newList: EdgesType[] = [];
 
-  if (selectedTag && selectedTag != "All") {
+  if (selectedTag != "All") {
     newList = edges.filter((edge) => {
       return edge.node.frontmatter.categories.includes(selectedTag);
     });
