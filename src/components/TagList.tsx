@@ -4,42 +4,37 @@ import React from "react";
 
 type TagListType = {
   list: string[];
-  link?: boolean;
+  linkTag?: boolean;
 };
 
-const Ul = styled.ul<{ center?: boolean }>`
+const Ul = styled.ul<{ linkTag?: boolean }>`
   margin: 10px 0;
   display: flex;
-  justify-content: ${({ center }) => (center ? "center" : null)};
+  justify-content: ${({ linkTag }) => (linkTag ? "center" : null)};
   gap: 10px;
 `;
 
-const Li = styled.li`
+const Li = styled.li<{ linkTag?: boolean }>`
   background-color: black;
   color: white;
-  padding: 2px 5px;
+  padding: ${({ linkTag }) => (linkTag ? null : "2px 5px")};
   border-radius: 5px;
+
+  & > a {
+    display: block;
+    padding: 2px 5px;
+  }
 `;
 
 const TagList: React.FC<TagListType> = (props) => {
-  const { list, link = false } = props;
-
-  if (link) {
-    return (
-      <Ul center>
-        {list.map((tag) => (
-          <Li key={tag}>
-            <Link to={`/category?tag=${tag}`}>{tag}</Link>
-          </Li>
-        ))}
-      </Ul>
-    );
-  }
+  const { list, linkTag = false } = props;
 
   return (
-    <Ul>
-      {list.map((item) => (
-        <Li key={item}>{item}</Li>
+    <Ul linkTag={linkTag}>
+      {list.map((tag) => (
+        <Li key={tag} linkTag={linkTag}>
+          {linkTag ? <Link to={`/category?tag=${tag}`}>{tag}</Link> : tag}
+        </Li>
       ))}
     </Ul>
   );

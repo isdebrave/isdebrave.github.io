@@ -14,7 +14,7 @@ const PostInfo: React.FC<PostInfoType> = (props) => {
     <div style={{ textAlign: "center" }}>
       <h1>{title}</h1>
       <span>{date}</span>
-      <TagList list={categories} link />
+      <TagList list={categories} linkTag />
     </div>
   );
 };

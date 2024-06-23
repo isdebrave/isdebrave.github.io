@@ -69,7 +69,7 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
         <h1>
           Tags &gt; {selectedTag} &gt; {tagList[selectedTag]} Posts
         </h1>
-        <TagList list={Object.keys(tagList)} link />
+        <TagList list={Object.keys(tagList)} linkTag />
         <CardList edges={edges} selectedTag={selectedTag} />
       </CategoryWrapper>
     </Template>
