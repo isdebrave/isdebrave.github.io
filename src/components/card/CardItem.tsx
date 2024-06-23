@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import TagList from "components/TagList";
 import { Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import React from "react";
@@ -33,19 +34,6 @@ const Date = styled.h4`
   opacity: 0.5;
 `;
 
-const CategoryList = styled.ul`
-  margin: 10px 0;
-  display: flex;
-  gap: 10px;
-`;
-
-const CategoryItem = styled.li`
-  background-color: black;
-  color: white;
-  padding: 2px 5px;
-  border-radius: 5px;
-`;
-
 const Summary = styled.p`
   display: -webkit-box;
   overflow: hidden;
@@ -73,11 +61,7 @@ const CardItem: React.FC<CardItemType> = (props) => {
       <div style={{ padding: "15px", backgroundColor: "white" }}>
         <h2>{title}</h2>
         <Date>{date}</Date>
-        <CategoryList>
-          {categories.map((category) => (
-            <CategoryItem key={category}>{category}</CategoryItem>
-          ))}
-        </CategoryList>
+        <TagList list={categories} />
         <Summary>{summary}</Summary>
       </div>
     </CardItemContainer>

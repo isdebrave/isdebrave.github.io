@@ -26,8 +26,8 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, getNode, action
     }
 }
 
-// 게시글 페이지 만들기
-export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql, reporter }) => {
+// 새로운 페이지 만들기
+export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql }) => {
     const { createPage } = actions;
 
     const result = await graphql<{ allMarkdownRemark: { edges: { node: { fields: { slug: string } } }[] } }>(`
@@ -47,7 +47,6 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, graphql,
     `);
 
     result.data?.allMarkdownRemark.edges.forEach(({ node }) => {
-
         createPage({
             path: node.fields.slug,
             component: path.resolve(__dirname, "src/templates/postTemplate.tsx"),

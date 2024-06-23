@@ -1,17 +1,15 @@
 import styled from "@emotion/styled";
+import TagList from "components/TagList";
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { Wrapper } from "styles/index";
 import { AllMarkdownRemarkType } from "types";
 
 type TagListType = {
-  selectedTag: string;
-  tagList: {
-    [key: string]: number;
-  };
+  [key: string]: number;
 };
 
 type CategoryPageType = {
@@ -30,25 +28,11 @@ const CategoryWrapper = styled(Wrapper)`
   }
 `;
 
-const CategoryList = styled.ul`
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-`;
-
-const CategoryItem = styled.li`
-  background-color: black;
-  color: white;
-  padding: 2px 5px;
-  border-radius: 5px;
-`;
-
 const CategoryPage: React.FC<CategoryPageType> = (props) => {
   const { search } = props.location;
   const { edges } = props.data.allMarkdownRemark;
 
-  const [tagList, setTagList] = useState<TagListType["tagList"]>({});
+  const [tagList, setTagList] = useState<TagListType>({});
   const [selectedTag, setSelectedTag] = useState("All");
 
   useEffect(() => {
@@ -60,16 +44,16 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
   }, [search]);
 
   useEffect(() => {
-    const list: TagListType["tagList"] = { All: 0 };
+    const list: TagListType = { All: 0 };
 
     for (const edge of edges) {
       const categories = edge.node.frontmatter.categories;
 
-      categories.forEach((category) => {
-        if (!list[category]) {
-          list[category] = 1;
+      categories.forEach((tag) => {
+        if (!list[tag]) {
+          list[tag] = 1;
         } else {
-          list[category]++;
+          list[tag]++;
         }
       });
 
@@ -85,13 +69,7 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
         <h1>
           Tags &gt; {selectedTag} &gt; {tagList[selectedTag]} Posts
         </h1>
-        <CategoryList>
-          {Object.keys(tagList).map((tag) => (
-            <CategoryItem key={tag}>
-              <Link to={`/category?tag=${tag}`}>{tag}</Link>
-            </CategoryItem>
-          ))}
-        </CategoryList>
+        <TagList list={Object.keys(tagList)} link />
         <CardList edges={edges} selectedTag={selectedTag} />
       </CategoryWrapper>
     </Template>
