@@ -31,7 +31,7 @@ const CardList: React.FC<CardListType> = (props) => {
     }
 
     setList(selectedList);
-  }, [selectedTag]);
+  }, [selectedTag, edges]);
 
   return (
     <Grid>

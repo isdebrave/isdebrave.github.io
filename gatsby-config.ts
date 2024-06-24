@@ -1,4 +1,5 @@
 import type { GatsbyConfig } from "gatsby";
+import { AllMarkdownRemarkType } from "types";
 
 const config: GatsbyConfig = {
     siteMetadata: {

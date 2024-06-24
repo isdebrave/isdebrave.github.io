@@ -5,6 +5,7 @@ import {
   IoMdHome,
   IoMdPerson,
 } from "react-icons/io";
+import { IoSearchSharp } from "react-icons/io5";
 import styled from "@emotion/styled";
 import NavItem from "./NavItem";
 
@@ -23,6 +24,12 @@ const list = [
   },
   {
     id: Math.random().toString(36).slice(2, 11),
+    to: "/search",
+    icon: IoSearchSharp,
+    label: "Search",
+  },
+  {
+    id: Math.random().toString(36).slice(2, 11),
     to: "/project",
     icon: IoIosArchive,
     label: "Project",
@@ -36,8 +43,8 @@ const list = [
 ];
 
 const Ul = styled.ul`
-  width: 100%;
   margin: 50px 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: start;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-const FooterWrapper = styled.footer`
+const FooterContainer = styled.footer`
   position: absolute;
   bottom: 20px;
   font-size: 12px;
@@ -10,9 +10,9 @@ const FooterWrapper = styled.footer`
 
 const Footer = () => {
   return (
-    <FooterWrapper>
+    <FooterContainer>
       &copy; All Rights Reserved, Powered By Gatsby.
-    </FooterWrapper>
+    </FooterContainer>
   );
 };
 
