@@ -36,6 +36,11 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
   const [selectedTag, setSelectedTag] = useState("All");
 
   useEffect(() => {
+    localStorage.removeItem("header");
+    localStorage.removeItem("searchList");
+  }, []);
+
+  useEffect(() => {
     const parsed = queryString.parse(search);
 
     if (typeof parsed.tag === "string") {

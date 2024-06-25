@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
-import { graphql, useStaticQuery } from "gatsby";
-import React, { FormEvent, useEffect, useState } from "react";
-import Fuse from "fuse.js";
-import { AllMarkdownRemarkType, EdgesType } from "types";
-import Template from "components/common/Template";
-import { Wrapper } from "styles/index";
 import CardList from "components/card/CardList";
-import { v4 as uuidv4 } from "uuid";
+import Template from "components/common/Template";
+import Fuse from "fuse.js";
+import { graphql } from "gatsby";
+import React, { FormEvent, useEffect, useState } from "react";
+import { Wrapper } from "styles/index";
+import { AllMarkdownRemarkType, EdgesType } from "types";
 
 type SearchPageType = {
   data: {
@@ -34,49 +33,72 @@ const Form = styled.form`
   }
 `;
 
+const EmptyText = styled.h1`
+  width: 768px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%);
+  color: rgba(0, 0, 0, 0.5);
+`;
+
 const SearchPage: React.FC<SearchPageType> = (props) => {
   const { data } = props;
 
-  const [query, setQuery] = useState("");
+  const [header, setHeader] = useState("");
   const [value, setValue] = useState("");
   const [searchList, setSearchList] = useState<EdgesType[]>([]);
 
-  const modifiedList = data.allMarkdownRemark.edges.map(
-    (edge) => edge.node.frontmatter
-  );
-
-  const fuse = new Fuse(modifiedList, {
-    keys: ["categories", "title", "summary"],
-    includeScore: true,
-  });
-
   useEffect(() => {
-    const result = fuse.search(query);
+    const header = localStorage.getItem("header");
+    const list = localStorage.getItem("searchList");
 
-    const edges = result.map((_, idx) => {
-      const edge = data.allMarkdownRemark.edges[idx];
+    if (header && list) {
+      const parsedHeader = JSON.parse(header);
+      const parsedList = JSON.parse(list);
 
-      return {
-        node: {
-          id: edge.node.id,
-          fields: edge.node.fields,
-          frontmatter: edge.node.frontmatter,
-        },
-      };
-    });
-
-    setSearchList(edges);
-  }, [query]);
+      setHeader(parsedHeader);
+      setSearchList(parsedList);
+    }
+  }, []);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setQuery(value);
-    setValue("");
-  };
+    const modifiedList = data.allMarkdownRemark.edges.map((edge) => {
+      return {
+        id: edge.node.id,
+        fields: edge.node.fields,
+        ...edge.node.frontmatter,
+      };
+    });
 
-  const onChange = (e: FormEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value);
+    const fuse = new Fuse(modifiedList, {
+      keys: ["categories", "title", "summary"],
+      includeScore: true,
+    });
+
+    const result = fuse.search(value);
+
+    const edges = result.map((element) => {
+      const { id, fields, ...frontmatter } = element.item;
+
+      return {
+        node: {
+          id: id,
+          fields: fields,
+          frontmatter: frontmatter,
+        },
+      };
+    });
+
+    localStorage.setItem("header", JSON.stringify(value));
+    localStorage.setItem("searchList", JSON.stringify(edges));
+
+    setSearchList(edges);
+    setHeader(value);
+    setValue("");
   };
 
   return (
@@ -86,11 +108,20 @@ const SearchPage: React.FC<SearchPageType> = (props) => {
           <input
             type="text"
             placeholder="Search..."
-            onChange={onChange}
+            onChange={(e) => setValue(e.currentTarget.value)}
             value={value}
           />
         </Form>
-        <CardList edges={searchList} selectedTag="All" />
+        {searchList.length > 0 ? (
+          <>
+            <h1 style={{ margin: "50px 0 20px 0", textAlign: "center" }}>
+              "{header}" 검색 결과
+            </h1>
+            <CardList edges={searchList} selectedTag="All" />
+          </>
+        ) : (
+          <EmptyText>검색 결과가 없습니다.</EmptyText>
+        )}
       </Wrapper>
     </Template>
   );

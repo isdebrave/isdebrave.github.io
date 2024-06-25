@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import { graphql } from "gatsby";
-import React from "react";
+import React, { useEffect } from "react";
 import { Wrapper } from "styles/index";
 import { AllMarkdownRemarkType, SiteType } from "types";
 
@@ -23,6 +23,11 @@ const HomeWrapper = styled(Wrapper)`
 const IndexPage: React.FC<IndexPageType> = (props) => {
   const { title } = props.data.site.siteMetadata;
   const { edges } = props.data.allMarkdownRemark;
+
+  useEffect(() => {
+    localStorage.removeItem("header");
+    localStorage.removeItem("searchList");
+  }, []);
 
   return (
     <Template>

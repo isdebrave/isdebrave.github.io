@@ -12,7 +12,7 @@ const Template: React.FC<TemplateType> = (props) => {
   return (
     <>
       <GlobalStyle />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", height: "100%" }}>
         <Layout />
         {children}
       </div>
