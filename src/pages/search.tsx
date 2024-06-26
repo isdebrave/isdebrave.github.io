@@ -51,8 +51,8 @@ const SearchPage: React.FC<SearchPageType> = (props) => {
   const [searchList, setSearchList] = useState<EdgesType[]>([]);
 
   useEffect(() => {
-    const header = localStorage.getItem("header");
-    const list = localStorage.getItem("searchList");
+    const header = sessionStorage.getItem("header");
+    const list = sessionStorage.getItem("searchList");
 
     if (header && list) {
       const parsedHeader = JSON.parse(header);
@@ -93,8 +93,8 @@ const SearchPage: React.FC<SearchPageType> = (props) => {
       };
     });
 
-    localStorage.setItem("header", JSON.stringify(value));
-    localStorage.setItem("searchList", JSON.stringify(edges));
+    sessionStorage.setItem("header", JSON.stringify(value));
+    sessionStorage.setItem("searchList", JSON.stringify(edges));
 
     setSearchList(edges);
     setHeader(value);

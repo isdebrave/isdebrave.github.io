@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 
 const AboutPage = () => {
   useEffect(() => {
-    localStorage.removeItem("header");
-    localStorage.removeItem("searchList");
+    sessionStorage.removeItem("header");
+    sessionStorage.removeItem("searchList");
   }, []);
 
   return <Template>AboutPage</Template>;

@@ -36,8 +36,8 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
   const [selectedTag, setSelectedTag] = useState("All");
 
   useEffect(() => {
-    localStorage.removeItem("header");
-    localStorage.removeItem("searchList");
+    sessionStorage.removeItem("header");
+    sessionStorage.removeItem("searchList");
   }, []);
 
   useEffect(() => {

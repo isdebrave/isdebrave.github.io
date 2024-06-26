@@ -25,8 +25,8 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
   const { edges } = props.data.allMarkdownRemark;
 
   useEffect(() => {
-    localStorage.removeItem("header");
-    localStorage.removeItem("searchList");
+    sessionStorage.removeItem("header");
+    sessionStorage.removeItem("searchList");
   }, []);
 
   return (
