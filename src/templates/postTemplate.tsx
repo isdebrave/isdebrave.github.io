@@ -7,6 +7,7 @@ import PostInfo from "components/post/PostInfo";
 import Comment from "components/comment/Comment";
 import { Wrapper } from "styles/index";
 import { FrontmatterType } from "types";
+import Toc from "components/Toc";
 
 type PostTemplateType = {
   data: {
@@ -37,6 +38,7 @@ const PostTemplate: React.FC<PostTemplateType> = (props) => {
         <PostContent html={html} />
         <Comment />
       </Wrapper>
+      <Toc />
     </Template>
   );
 };
