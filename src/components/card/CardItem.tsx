@@ -39,6 +39,7 @@ const Summary = styled.p`
   overflow: hidden;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  word-break: keep-all;
 `;
 
 const CardItem: React.FC<CardItemType> = (props) => {

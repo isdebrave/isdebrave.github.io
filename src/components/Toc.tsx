@@ -6,7 +6,8 @@ const TocContainer = styled.aside`
 `;
 
 const Toc = () => {
-  return <TocContainer>hi</TocContainer>;
+  return;
+  // return <TocContainer>hi</TocContainer>;
 };
 
 export default Toc;

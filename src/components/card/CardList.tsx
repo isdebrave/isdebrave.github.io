@@ -14,6 +14,17 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin: 0 auto;
+  transition: all 0.3s ease-in-out;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    padding: 0 100px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0 20px;
+  }
 `;
 
 const CardList: React.FC<CardListType> = (props) => {

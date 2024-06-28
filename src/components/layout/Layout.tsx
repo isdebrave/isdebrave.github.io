@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { forwardRef } from "react";
 import NavList from "./nav/NavList";
 import SocialList from "./social/SocialList";
 import Profile from "./Profile";
@@ -7,12 +7,14 @@ import Footer from "components/Footer";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby";
 
-const LayoutWrapper = styled.aside`
+const LayoutWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 250px;
   height: 100%;
+  transition: all 0.3s ease-in-out;
+  z-index: 20;
 
   & > nav {
     position: relative;
@@ -22,6 +24,10 @@ const LayoutWrapper = styled.aside`
     align-items: center;
     padding: 50px 30px;
     color: white;
+  }
+
+  @media (max-width: 1200px) {
+    margin-left: -250px;
   }
 `;
 
@@ -34,7 +40,7 @@ const Background = styled(GatsbyImage)`
   filter: brightness(0.25);
 `;
 
-const Layout = () => {
+const Layout = forwardRef((_, ref: React.ForwardedRef<HTMLDivElement>) => {
   const data = useStaticQuery(graphql`
     {
       file(name: { eq: "layout-background" }) {
@@ -45,9 +51,8 @@ const Layout = () => {
     }
   `);
   const { gatsbyImageData } = data.file.childImageSharp;
-
   return (
-    <LayoutWrapper>
+    <LayoutWrapper ref={ref}>
       <Background image={gatsbyImageData} alt="background" />
       <nav>
         <Profile />
@@ -57,6 +62,6 @@ const Layout = () => {
       </nav>
     </LayoutWrapper>
   );
-};
+});
 
 export default Layout;

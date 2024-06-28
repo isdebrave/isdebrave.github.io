@@ -5,6 +5,11 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.main`
   position: relative;
   margin-left: 250px;
-  padding: 70px 20px;
+  padding: 70px 0;
   flex: 1;
+  transition: all 0.3s ease-in-out;
+
+  @media (max-width: 1200px) {
+    margin-left: 0;
+  }
 `;
