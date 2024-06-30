@@ -3,6 +3,7 @@ import React from "react";
 import "github-markdown-css/github-markdown.css";
 
 type PostContentType = {
+  id: string;
   html: string;
 };
 
@@ -31,10 +32,10 @@ const MarkdownBody = styled.div`
 `;
 
 const PostContent: React.FC<PostContentType> = (props) => {
-  const { html } = props;
+  const { id, html } = props;
 
   return (
-    <MarkdownBody className="markdown-body">
+    <MarkdownBody id={id} className="markdown-body">
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </MarkdownBody>
   );

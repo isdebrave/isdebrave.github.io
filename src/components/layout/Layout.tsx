@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React, { forwardRef } from "react";
 import NavList from "./nav/NavList";
 import SocialList from "./social/SocialList";
-import Profile from "./Profile";
+import Profile from "./profile/Profile";
 import Footer from "components/Footer";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby";
