@@ -28,13 +28,14 @@ const Li = styled.li`
 `;
 
 const Toc = () => {
+  const [activeId, setActiveId] = useState("");
   const [hTagsList, setHTagsList] = useState<Element[]>([]);
 
   useEffect(() => {
     const post = document.getElementById("post-content")!;
     const list = Array.from(post.querySelectorAll("h1, h2, h3"));
 
-    /* h1, h2, h3 요소에 id 설정 */
+    /* h1, h2, h3에 id 할당 */
     list.forEach((item) => {
       item.id = item.textContent!;
     });
@@ -42,15 +43,13 @@ const Toc = () => {
     setHTagsList(list);
   }, []);
 
-  // useEffect(() => {
-  //   const tocList = document.getElementById("toc-list")!;
+  useEffect(() => {
+    const observer = getIntersectionObserver(setActiveId);
 
-  //   const observer = getIntersectionObserver(tocList);
+    hTagsList.forEach((hTag) => observer.observe(hTag));
 
-  //   hTagsList.forEach((hTag) => observer.observe(hTag));
-
-  //   return () => observer.disconnect();
-  // }, [hTagsList]);
+    return () => observer.disconnect();
+  }, [hTagsList]);
 
   return (
     <TocContainer>
@@ -58,7 +57,10 @@ const Toc = () => {
       <hr />
       <ul id="toc-list">
         {hTagsList.map((hTags) => (
-          <Li key={hTags.textContent}>
+          <Li
+            key={hTags.textContent}
+            className={`${activeId === hTags.textContent ? "active" : ""}`}
+          >
             <Link to={`#${hTags.textContent}`}>{hTags.textContent}</Link>
           </Li>
         ))}

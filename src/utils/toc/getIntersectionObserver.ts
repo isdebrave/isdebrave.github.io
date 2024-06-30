@@ -1,18 +1,12 @@
-export const getIntersectionObserver = (ulElement: HTMLElement) => {
+import { Dispatch, SetStateAction } from "react";
+
+export const getIntersectionObserver = (
+  setActiveId: Dispatch<SetStateAction<string>>
+) => {
   const callback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const textContent = entry.target.textContent ?? "";
-
-        ulElement.childNodes.forEach((li) => {
-          const element = li as Element;
-
-          if (element.textContent === textContent) {
-            element.classList.add("active");
-          } else {
-            element.classList.remove("active");
-          }
-        });
+        setActiveId(entry.target.textContent!);
       }
     });
   };
@@ -24,7 +18,7 @@ export const getIntersectionObserver = (ulElement: HTMLElement) => {
   //   };
 
   const options: IntersectionObserverInit = {
-    rootMargin: "-70px 0px -90% 0px",
+    rootMargin: "-64px 0px -40% 0px",
   };
 
   const observer = new IntersectionObserver(callback, options);
