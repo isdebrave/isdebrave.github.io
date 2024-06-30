@@ -16,6 +16,10 @@ const defaultStyle = css`
     background-color: #eeebe0;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   li {
     list-style: none;
     color: inherit;

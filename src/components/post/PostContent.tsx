@@ -31,12 +31,24 @@ const MarkdownBody = styled.div`
   }
 `;
 
+const ScrollOnTop = styled.div`
+  h1,
+  h2,
+  h3 {
+    scroll-margin-top: 10px;
+
+    @media (max-width: 1200px) {
+      scroll-margin-top: 80px;
+    }
+  }
+`;
+
 const PostContent: React.FC<PostContentType> = (props) => {
   const { id, html } = props;
 
   return (
     <MarkdownBody id={id} className="markdown-body">
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <ScrollOnTop dangerouslySetInnerHTML={{ __html: html }} />
     </MarkdownBody>
   );
 };
