@@ -54,7 +54,9 @@ const Template: React.FC<TemplateType> = (props) => {
   return (
     <>
       <GlobalStyle />
-      <div style={{ position: "relative", display: "flex", height: "100%" }}>
+      <div
+        style={{ position: "relative", display: "flex", minHeight: "100vh" }}
+      >
         <ProfileContainer>
           <div
             style={{ display: "inline-block" }}

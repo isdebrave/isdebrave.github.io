@@ -51,6 +51,12 @@ const Toc = () => {
     return () => observer.disconnect();
   }, [hTagsList]);
 
+  const clickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
+    console.log(e.currentTarget);
+
+    // setActiveId(e.currentTarget.value);
+  };
+
   return (
     <TocContainer>
       <h3>목차</h3>
@@ -60,6 +66,7 @@ const Toc = () => {
           <Li
             key={hTags.textContent}
             className={`${activeId === hTags.textContent ? "active" : ""}`}
+            onClick={clickHandler}
           >
             <Link to={`#${hTags.textContent}`}>{hTags.textContent}</Link>
           </Li>
