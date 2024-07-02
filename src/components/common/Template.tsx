@@ -1,13 +1,17 @@
-import React, { useRef } from "react";
+import styled from "@emotion/styled";
+import React, { useRef, useState } from "react";
+import { IoMenu } from "react-icons/io5";
 import GlobalStyle from "styles/GlobalStyle";
 import Layout from "../layout/Layout";
-import { graphql, useStaticQuery } from "gatsby";
-import styled from "@emotion/styled";
-import { GatsbyImage } from "gatsby-plugin-image";
-import { IoMenu } from "react-icons/io5";
 
 type TemplateType = {
   children: React.ReactNode;
+};
+
+export type menuHandlerType = {
+  ref: React.RefObject<HTMLDivElement>;
+  open: boolean;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const TopNavigation = styled.header`
@@ -40,34 +44,47 @@ const TopNavigation = styled.header`
   }
 `;
 
-const Wrapper = styled.main`
+const TemplateWrapper = styled.main`
   position: relative;
   padding: 110px 70px 70px 70px;
   flex: 1;
   transition: all 0.3s ease-in-out;
-  /* min-height: 100vh; */
 `;
 
-const onClick = (ref: React.RefObject<HTMLDivElement>) => {
-  if (ref.current) {
-    ref.current.style.marginLeft = "0px";
-  }
+const menuHandler = (props: menuHandlerType) => {
+  const { ref, open, setIsMenuOpen } = props;
+
+  return () => {
+    if (ref.current) {
+      if (open) {
+        ref.current.style.marginLeft = "0px";
+        setIsMenuOpen(true);
+      } else {
+        ref.current.style.marginLeft = "-250px";
+        setIsMenuOpen(false);
+      }
+    }
+  };
 };
 
 const Template: React.FC<TemplateType> = (props) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const { children } = props;
 
   return (
     <>
       <GlobalStyle />
       <TopNavigation>
-        <button onClick={() => onClick(ref)}>
+        <button onClick={menuHandler({ ref, open: true, setIsMenuOpen })}>
           <IoMenu size={30} />
         </button>
       </TopNavigation>
-      <Layout ref={ref} />
-      <Wrapper>{children}</Wrapper>
+      <Layout
+        ref={ref}
+        onClose={menuHandler({ ref, open: false, setIsMenuOpen })}
+        isMenuOpen={isMenuOpen}
+      />
+      <TemplateWrapper>{props.children}</TemplateWrapper>
     </>
   );
 };

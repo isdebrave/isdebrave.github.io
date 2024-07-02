@@ -1,22 +1,46 @@
 import styled from "@emotion/styled";
-import React, { forwardRef } from "react";
-import NavList from "./nav/NavList";
-import SocialList from "./social/SocialList";
-import Profile from "./profile/Profile";
 import Footer from "components/Footer";
-import { GatsbyImage } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
+import React, { forwardRef } from "react";
 import { IoClose } from "react-icons/io5";
+import NavList from "./nav/NavList";
+import Profile from "./profile/Profile";
+import SocialList from "./social/SocialList";
+
+type LayoutType = {
+  onClose: () => void;
+  isMenuOpen: boolean;
+};
 
 const LayoutWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  /* margin-left: -250px; */
+  margin-left: -250px;
   width: 250px;
   height: 100%;
   transition: all 0.3s ease-in-out;
   z-index: 20;
+
+  & > button {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background-color: transparent;
+    color: white;
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+    }
+  }
 
   & > nav {
     position: relative;
@@ -27,10 +51,15 @@ const LayoutWrapper = styled.div`
     padding: 80px 30px 50px 30px;
     color: white;
   }
+`;
 
-  /* @media (max-width: 1200px) {
-    margin-left: -250px;
-  } */
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 const Background = styled(GatsbyImage)`
@@ -42,7 +71,9 @@ const Background = styled(GatsbyImage)`
   filter: brightness(0.25);
 `;
 
-const Layout = forwardRef((_, ref: React.ForwardedRef<HTMLDivElement>) => {
+const Layout = forwardRef<HTMLDivElement, LayoutType>((props, ref) => {
+  const { onClose, isMenuOpen } = props;
+
   const data = useStaticQuery(graphql`
     {
       file(name: { eq: "layout-background" }) {
@@ -56,7 +87,15 @@ const Layout = forwardRef((_, ref: React.ForwardedRef<HTMLDivElement>) => {
 
   return (
     <LayoutWrapper ref={ref}>
-      <IoClose />
+      {isMenuOpen && (
+        <div onClick={onClose}>
+          <Overlay />
+        </div>
+      )}
+
+      <button onClick={onClose}>
+        <IoClose size={30} />
+      </button>
       <Background image={gatsbyImageData} alt="background" />
       <nav>
         <Profile />
