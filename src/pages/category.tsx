@@ -21,13 +21,6 @@ type CategoryPageType = {
   };
 };
 
-const CategoryWrapper = styled(Wrapper)`
-  & > h1 {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-`;
-
 const CategoryPage: React.FC<CategoryPageType> = (props) => {
   const { search } = props.location;
   const { edges } = props.data.allMarkdownRemark;
@@ -70,13 +63,11 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
 
   return (
     <Template>
-      <CategoryWrapper>
-        <h1>
-          Tags &gt; {selectedTag} &gt; {tagList[selectedTag]} Posts
-        </h1>
-        <TagList list={Object.keys(tagList)} linkTag />
-        <CardList edges={edges} selectedTag={selectedTag} />
-      </CategoryWrapper>
+      <h1 style={{ textAlign: "center", marginBottom: "40px" }}>
+        Tags &gt; {selectedTag} &gt; {tagList[selectedTag]} Posts
+      </h1>
+      <TagList list={Object.keys(tagList)} linkTag />
+      <CardList edges={edges} selectedTag={selectedTag} />
     </Template>
   );
 };

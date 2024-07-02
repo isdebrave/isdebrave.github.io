@@ -3,8 +3,7 @@ import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import Fuse from "fuse.js";
 import { graphql } from "gatsby";
-import React, { FormEvent, useEffect, useState } from "react";
-import { Wrapper } from "styles/index";
+import React, { useEffect, useState } from "react";
 import { AllMarkdownRemarkType, EdgesType } from "types";
 
 type SearchPageType = {
@@ -16,29 +15,7 @@ type SearchPageType = {
   };
 };
 
-const Form = styled.form`
-  width: 768px;
-  margin: 0 auto;
-
-  & > input {
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 30px;
-    padding: 10px 15px;
-    background-color: transparent;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-    transition: border-bottom 0.3s ease-in-out;
-
-    &:focus {
-      border-bottom: 2px solid #ffbe76;
-    }
-  }
-`;
-
 const EmptyText = styled.h1`
-  width: 768px;
-  text-align: center;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -102,8 +79,6 @@ const SearchPage: React.FC<SearchPageType> = (props) => {
     setKeyword(value);
     setSearchList(edges);
   }, [search]);
-
-  console.log(searchList);
 
   return (
     <Template>

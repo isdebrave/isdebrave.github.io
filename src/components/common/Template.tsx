@@ -4,6 +4,7 @@ import { IoMenu } from "react-icons/io5";
 import GlobalStyle from "styles/GlobalStyle";
 import Layout from "../layout/Layout";
 import Search from "components/Search";
+import { Link } from "gatsby";
 
 type TemplateType = {
   children: React.ReactNode;
@@ -22,26 +23,22 @@ const TopNavigation = styled.header`
   width: 100%;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+`;
+
+const MenuButton = styled.button`
   display: flex;
   align-items: center;
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
 
-  & > button {
-    display: flex;
-    align-items: center;
-    border: none;
-    background-color: transparent;
-    padding: 10px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 100px;
-    }
-  }
-
-  & > h2 {
-    width: 100%;
-    text-align: center;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
   }
 `;
 
@@ -50,6 +47,7 @@ const TemplateWrapper = styled.main`
   padding: 110px 70px 70px 70px;
   flex: 1;
   transition: all 0.3s ease-in-out;
+  min-height: inherit;
 `;
 
 const menuHandler = (props: menuHandlerType) => {
@@ -76,9 +74,14 @@ const Template: React.FC<TemplateType> = (props) => {
     <>
       <GlobalStyle />
       <TopNavigation>
-        <button onClick={menuHandler({ ref, open: true, setIsMenuOpen })}>
-          <IoMenu size={30} />
-        </button>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <MenuButton onClick={menuHandler({ ref, open: true, setIsMenuOpen })}>
+            <IoMenu size={30} />
+          </MenuButton>
+          <Link to="/">
+            <h3>Isdebrave</h3>
+          </Link>
+        </div>
         <Search />
       </TopNavigation>
       <Layout
