@@ -10,8 +10,7 @@ type CardListType = {
 
 const Grid = styled.div`
   display: grid;
-  width: 768px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
   margin: 0 auto;
   transition: all 0.3s ease-in-out;

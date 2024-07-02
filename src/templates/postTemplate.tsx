@@ -45,9 +45,9 @@ const PostTemplate: React.FC<PostTemplateType> = (props) => {
           <PostContent id="post-content" html={html} />
           <Comment />
         </div>
-        <div>
+        {/* <div>
           <Toc />
-        </div>
+        </div> */}
       </PostTemplateWrapper>
     </Template>
   );

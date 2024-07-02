@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.main`
   position: relative;
-  margin-left: 250px;
-  padding: 70px 0;
+  /* margin-left: 250px; */
+  padding: 70px;
   flex: 1;
   transition: all 0.3s ease-in-out;
 

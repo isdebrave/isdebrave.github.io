@@ -31,10 +31,10 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
 
   return (
     <Template>
-      <HomeWrapper>
-        <h1>{title}</h1>
-        <CardList edges={edges} selectedTag="All" />
-      </HomeWrapper>
+      {/* <HomeWrapper> */}
+      {/* <h1>{title}</h1> */}
+      <CardList edges={edges} selectedTag="All" />
+      {/* </HomeWrapper> */}
     </Template>
   );
 };

@@ -4,33 +4,51 @@ import Layout from "../layout/Layout";
 import { graphql, useStaticQuery } from "gatsby";
 import styled from "@emotion/styled";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { IoMenu } from "react-icons/io5";
 
 type TemplateType = {
   children: React.ReactNode;
 };
 
-const ProfileContainer = styled.div`
-  position: fixed;
-  padding: 10px;
-  width: 100%;
+const TopNavigation = styled.header`
   z-index: 10;
-  transition: all 0.3s ease-in-out;
+  position: fixed;
+  background-color: #f3f1ea;
+  width: 100%;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
 
-  @media (max-width: 1200px) {
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
+  & > button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 100px;
+    }
+  }
+
+  & > h2 {
+    width: 100%;
+    text-align: center;
   }
 `;
 
-const ProfileImage = styled(GatsbyImage)`
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  object-fit: cover;
-  cursor: pointer;
+const Wrapper = styled.main`
+  position: relative;
+  padding: 110px 70px 70px 70px;
+  flex: 1;
+  transition: all 0.3s ease-in-out;
+  /* min-height: 100vh; */
 `;
 
-const clickHandler = (ref: React.RefObject<HTMLDivElement>) => {
+const onClick = (ref: React.RefObject<HTMLDivElement>) => {
   if (ref.current) {
     ref.current.style.marginLeft = "0px";
   }
@@ -40,34 +58,16 @@ const Template: React.FC<TemplateType> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
   const { children } = props;
 
-  const data = useStaticQuery(graphql`
-    {
-      file(name: { eq: "profile" }) {
-        childImageSharp {
-          gatsbyImageData(width: 80, height: 80, placeholder: DOMINANT_COLOR)
-        }
-      }
-    }
-  `);
-  const { gatsbyImageData } = data.file.childImageSharp;
-
   return (
     <>
       <GlobalStyle />
-      <div
-        style={{ position: "relative", display: "flex", minHeight: "100vh" }}
-      >
-        <ProfileContainer>
-          <div
-            style={{ display: "inline-block" }}
-            onClick={() => clickHandler(ref)}
-          >
-            <ProfileImage image={gatsbyImageData} alt="profileImage" />
-          </div>
-        </ProfileContainer>
-        <Layout ref={ref} />
-        {children}
-      </div>
+      <TopNavigation>
+        <button onClick={() => onClick(ref)}>
+          <IoMenu size={30} />
+        </button>
+      </TopNavigation>
+      <Layout ref={ref} />
+      <Wrapper>{children}</Wrapper>
     </>
   );
 };

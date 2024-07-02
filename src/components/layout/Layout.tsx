@@ -6,11 +6,13 @@ import Profile from "./profile/Profile";
 import Footer from "components/Footer";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { graphql, useStaticQuery } from "gatsby";
+import { IoClose } from "react-icons/io5";
 
 const LayoutWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  /* margin-left: -250px; */
   width: 250px;
   height: 100%;
   transition: all 0.3s ease-in-out;
@@ -22,13 +24,13 @@ const LayoutWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 50px 30px;
+    padding: 80px 30px 50px 30px;
     color: white;
   }
 
-  @media (max-width: 1200px) {
+  /* @media (max-width: 1200px) {
     margin-left: -250px;
-  }
+  } */
 `;
 
 const Background = styled(GatsbyImage)`
@@ -51,8 +53,10 @@ const Layout = forwardRef((_, ref: React.ForwardedRef<HTMLDivElement>) => {
     }
   `);
   const { gatsbyImageData } = data.file.childImageSharp;
+
   return (
     <LayoutWrapper ref={ref}>
+      <IoClose />
       <Background image={gatsbyImageData} alt="background" />
       <nav>
         <Profile />
