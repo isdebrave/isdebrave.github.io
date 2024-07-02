@@ -8,6 +8,9 @@ import { Wrapper } from "styles/index";
 import { AllMarkdownRemarkType, EdgesType } from "types";
 
 type SearchPageType = {
+  location: {
+    search: string;
+  };
   data: {
     allMarkdownRemark: AllMarkdownRemarkType;
   };
@@ -44,27 +47,27 @@ const EmptyText = styled.h1`
 `;
 
 const SearchPage: React.FC<SearchPageType> = (props) => {
+  const { search } = props.location;
   const { data } = props;
 
-  const [header, setHeader] = useState("");
-  const [value, setValue] = useState("");
+  const [keyword, setKeyword] = useState("");
   const [searchList, setSearchList] = useState<EdgesType[]>([]);
 
   useEffect(() => {
-    const header = sessionStorage.getItem("header");
+    const keyword = sessionStorage.getItem("keyword");
     const list = sessionStorage.getItem("searchList");
 
-    if (header && list) {
-      const parsedHeader = JSON.parse(header);
+    if (keyword && list) {
+      const parsedHeader = JSON.parse(keyword);
       const parsedList = JSON.parse(list);
 
-      setHeader(parsedHeader);
+      setKeyword(parsedHeader);
       setSearchList(parsedList);
     }
   }, []);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
+    const value = search.split("keyword=")[1];
 
     const modifiedList = data.allMarkdownRemark.edges.map((edge) => {
       return {
@@ -93,36 +96,27 @@ const SearchPage: React.FC<SearchPageType> = (props) => {
       };
     });
 
-    sessionStorage.setItem("header", JSON.stringify(value));
+    sessionStorage.setItem("keyword", JSON.stringify(value));
     sessionStorage.setItem("searchList", JSON.stringify(edges));
 
+    setKeyword(value);
     setSearchList(edges);
-    setHeader(value);
-    setValue("");
-  };
+  }, [search]);
+
+  console.log(searchList);
 
   return (
     <Template>
-      <Wrapper>
-        <Form onSubmit={onSubmit}>
-          <input
-            type="text"
-            placeholder="Search..."
-            onChange={(e) => setValue(e.currentTarget.value)}
-            value={value}
-          />
-        </Form>
-        {searchList.length > 0 ? (
-          <>
-            <h1 style={{ margin: "50px 0 20px 0", textAlign: "center" }}>
-              "{header}" 검색 결과
-            </h1>
-            <CardList edges={searchList} selectedTag="All" />
-          </>
-        ) : (
-          <EmptyText>검색 결과가 없습니다.</EmptyText>
-        )}
-      </Wrapper>
+      {searchList.length > 0 ? (
+        <>
+          <h1 style={{ marginBottom: "20px", textAlign: "center" }}>
+            "{keyword}" 검색 결과
+          </h1>
+          <CardList edges={searchList} selectedTag="All" />
+        </>
+      ) : (
+        <EmptyText>검색 결과가 없습니다.</EmptyText>
+      )}
     </Template>
   );
 };

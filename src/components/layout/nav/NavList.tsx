@@ -24,12 +24,6 @@ const list = [
   },
   {
     id: Math.random().toString(36).slice(2, 11),
-    to: "/search",
-    icon: IoSearchSharp,
-    label: "Search",
-  },
-  {
-    id: Math.random().toString(36).slice(2, 11),
     to: "/project",
     icon: IoIosArchive,
     label: "Project",

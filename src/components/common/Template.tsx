@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import GlobalStyle from "styles/GlobalStyle";
 import Layout from "../layout/Layout";
+import Search from "components/Search";
 
 type TemplateType = {
   children: React.ReactNode;
@@ -78,6 +79,7 @@ const Template: React.FC<TemplateType> = (props) => {
         <button onClick={menuHandler({ ref, open: true, setIsMenuOpen })}>
           <IoMenu size={30} />
         </button>
+        <Search />
       </TopNavigation>
       <Layout
         ref={ref}

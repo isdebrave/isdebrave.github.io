@@ -21,7 +21,6 @@ const HomeWrapper = styled(Wrapper)`
 `;
 
 const IndexPage: React.FC<IndexPageType> = (props) => {
-  const { title } = props.data.site.siteMetadata;
   const { edges } = props.data.allMarkdownRemark;
 
   useEffect(() => {
@@ -43,11 +42,6 @@ export default IndexPage;
 
 export const getHomeListData = graphql`
   {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMarkdownRemark(
       sort: { order: DESC, fields: [frontmatter___date, frontmatter___title] }
     ) {
