@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
-import { getIntersectionObserver } from "utils/toc/getIntersectionObserver";
 
 const TocContainer = styled.aside`
-  position: sticky;
-  top: 80px;
+  position: fixed;
+  right: 50px;
+  top: 50px;
   margin: 100px 0 0 70px;
   width: 200px;
 
@@ -17,10 +17,6 @@ const TocContainer = styled.aside`
 `;
 
 const Li = styled.li`
-  &.active {
-    color: #e67e22;
-  }
-
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -28,7 +24,6 @@ const Li = styled.li`
 `;
 
 const Toc = () => {
-  const [activeId, setActiveId] = useState("");
   const [hTagsList, setHTagsList] = useState<Element[]>([]);
 
   useEffect(() => {
@@ -43,31 +38,13 @@ const Toc = () => {
     setHTagsList(list);
   }, []);
 
-  useEffect(() => {
-    const observer = getIntersectionObserver(setActiveId);
-
-    hTagsList.forEach((hTag) => observer.observe(hTag));
-
-    return () => observer.disconnect();
-  }, [hTagsList]);
-
-  const clickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
-    console.log(e.currentTarget);
-
-    // setActiveId(e.currentTarget.value);
-  };
-
   return (
     <TocContainer>
       <h3>목차</h3>
       <hr />
       <ul id="toc-list">
         {hTagsList.map((hTags) => (
-          <Li
-            key={hTags.textContent}
-            className={`${activeId === hTags.textContent ? "active" : ""}`}
-            onClick={clickHandler}
-          >
+          <Li key={hTags.textContent}>
             <Link to={`#${hTags.textContent}`}>{hTags.textContent}</Link>
           </Li>
         ))}

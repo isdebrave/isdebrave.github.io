@@ -35,11 +35,7 @@ const ScrollOnTop = styled.div`
   h1,
   h2,
   h3 {
-    scroll-margin-top: 10px;
-
-    @media (max-width: 1200px) {
-      scroll-margin-top: 80px;
-    }
+    scroll-margin-top: 80px;
   }
 `;
 

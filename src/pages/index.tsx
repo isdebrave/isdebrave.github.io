@@ -1,9 +1,7 @@
-import styled from "@emotion/styled";
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import { graphql } from "gatsby";
 import React, { useEffect } from "react";
-import { Wrapper } from "styles/index";
 import { AllMarkdownRemarkType, SiteType } from "types";
 
 type IndexPageType = {
@@ -12,13 +10,6 @@ type IndexPageType = {
     allMarkdownRemark: AllMarkdownRemarkType;
   };
 };
-
-const HomeWrapper = styled(Wrapper)`
-  & > h1 {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-`;
 
 const IndexPage: React.FC<IndexPageType> = (props) => {
   const { edges } = props.data.allMarkdownRemark;
@@ -30,10 +21,7 @@ const IndexPage: React.FC<IndexPageType> = (props) => {
 
   return (
     <Template>
-      {/* <HomeWrapper> */}
-      {/* <h1>{title}</h1> */}
       <CardList edges={edges} selectedTag="All" />
-      {/* </HomeWrapper> */}
     </Template>
   );
 };
