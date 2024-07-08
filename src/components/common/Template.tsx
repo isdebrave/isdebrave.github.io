@@ -26,6 +26,10 @@ const TopNavigation = styled.header`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const MenuButton = styled.button`
@@ -44,10 +48,14 @@ const MenuButton = styled.button`
 
 const TemplateWrapper = styled.main`
   position: relative;
-  padding: 110px 70px 70px 70px;
+  padding: 110px 100px 70px 100px;
   flex: 1;
   transition: all 0.3s ease-in-out;
   min-height: inherit;
+
+  @media (max-width: 600px) {
+    padding: 110px 30px 70px 30px;
+  }
 `;
 
 const menuHandler = (props: menuHandlerType) => {

@@ -10,19 +10,21 @@ type CardListType = {
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 20px;
   margin: 0 auto;
   transition: all 0.3s ease-in-out;
 
-  @media (max-width: 900px) {
-    width: 100%;
-    padding: 0 100px;
-    grid-template-columns: 1fr;
+  @media (max-width: 1600px) {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
-  @media (max-width: 600px) {
-    padding: 0 20px;
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
   }
 `;
 

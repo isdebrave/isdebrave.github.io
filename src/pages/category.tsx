@@ -1,11 +1,9 @@
-import styled from "@emotion/styled";
 import TagList from "components/TagList";
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import { graphql } from "gatsby";
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
-import { Wrapper } from "styles/index";
 import { AllMarkdownRemarkType } from "types";
 
 type TagListType = {
@@ -27,11 +25,6 @@ const CategoryPage: React.FC<CategoryPageType> = (props) => {
 
   const [tagList, setTagList] = useState<TagListType>({});
   const [selectedTag, setSelectedTag] = useState("All");
-
-  useEffect(() => {
-    sessionStorage.removeItem("header");
-    sessionStorage.removeItem("searchList");
-  }, []);
 
   useEffect(() => {
     const parsed = queryString.parse(search);

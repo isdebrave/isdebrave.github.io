@@ -1,7 +1,7 @@
 import CardList from "components/card/CardList";
 import Template from "components/common/Template";
 import { graphql } from "gatsby";
-import React, { useEffect } from "react";
+import React from "react";
 import { AllMarkdownRemarkType, SiteType } from "types";
 
 type IndexPageType = {
@@ -13,11 +13,6 @@ type IndexPageType = {
 
 const IndexPage: React.FC<IndexPageType> = (props) => {
   const { edges } = props.data.allMarkdownRemark;
-
-  useEffect(() => {
-    sessionStorage.removeItem("header");
-    sessionStorage.removeItem("searchList");
-  }, []);
 
   return (
     <Template>
