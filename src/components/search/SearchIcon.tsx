@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Overlay from "components/Overlay";
-import React, { useState } from "react";
+import React from "react";
 import { IoSearch } from "react-icons/io5";
 
 type SearchIconType = {

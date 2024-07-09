@@ -14,6 +14,10 @@ const TocContainer = styled.aside`
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
+
+  @media (max-width: 1400px) {
+    display: none;
+  }
 `;
 
 const Li = styled.li`
