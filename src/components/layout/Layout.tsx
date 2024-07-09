@@ -7,6 +7,7 @@ import { IoClose } from "react-icons/io5";
 import NavList from "./nav/NavList";
 import Profile from "./profile/Profile";
 import SocialList from "./social/SocialList";
+import Overlay from "components/Overlay";
 
 type LayoutType = {
   onClose: () => void;
@@ -53,15 +54,6 @@ const LayoutWrapper = styled.div`
   }
 `;
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-
 const Background = styled(GatsbyImage)`
   position: absolute !important;
   z-index: -1;
@@ -87,11 +79,7 @@ const Layout = forwardRef<HTMLDivElement, LayoutType>((props, ref) => {
 
   return (
     <LayoutWrapper ref={ref}>
-      {isMenuOpen && (
-        <div onClick={onClose}>
-          <Overlay />
-        </div>
-      )}
+      {isMenuOpen && <Overlay onClick={onClose} color="rgba(0, 0, 0, 0.4)" />}
 
       <button onClick={onClose}>
         <IoClose size={30} />

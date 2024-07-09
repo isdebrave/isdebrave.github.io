@@ -3,8 +3,8 @@ import React, { useRef, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import GlobalStyle from "styles/GlobalStyle";
 import Layout from "../layout/Layout";
-import Search from "components/Search";
 import { Link } from "gatsby";
+import Search from "components/search/Search";
 
 type TemplateType = {
   children: React.ReactNode;
