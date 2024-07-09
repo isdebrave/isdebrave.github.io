@@ -1,14 +1,12 @@
-import React from "react";
-import { graphql } from "gatsby";
+import Comment from "components/Comment";
+import Toc from "components/Toc";
 import Template from "components/common/Template";
 import PostContent from "components/post/PostContent";
 import PostImage from "components/post/PostImage";
 import PostInfo from "components/post/PostInfo";
-import { Wrapper } from "styles/index";
+import { graphql } from "gatsby";
+import React from "react";
 import { FrontmatterType } from "types";
-import styled from "@emotion/styled";
-import Comment from "components/Comment";
-import Toc from "components/Toc";
 
 type PostTemplateType = {
   data: {

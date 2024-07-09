@@ -19,8 +19,9 @@ const EmptyText = styled.h1`
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   color: rgba(0, 0, 0, 0.5);
+  text-align: center;
 `;
 
 const SearchPage: React.FC<SearchPageType> = (props) => {

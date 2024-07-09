@@ -7,7 +7,7 @@ type PostImageType = {
 };
 
 const ImageWrapper = styled.div`
-  height: 400px;
+  max-height: 400px;
   text-align: center;
 
   .gatsby-image-wrapper {
