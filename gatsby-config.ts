@@ -57,6 +57,13 @@ const config: GatsbyConfig = {
       },
     },
     `gatsby-plugin-emotion`,
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://www.yourdomain.tld`,
+        stripQueryString: true,
+      },
+    },
   ],
   trailingSlash: "never",
 };
