@@ -68,7 +68,7 @@ const Layout = forwardRef<HTMLDivElement, LayoutType>((props, ref) => {
 
   const data = useStaticQuery(graphql`
     {
-      file(name: { eq: "layout-background" }) {
+      file(name: { eq: "layout_background" }) {
         childImageSharp {
           gatsbyImageData(width: 203, height: 361, placeholder: DOMINANT_COLOR)
         }
