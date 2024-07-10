@@ -5,6 +5,7 @@ import GlobalStyle from "styles/GlobalStyle";
 import Layout from "../layout/Layout";
 import { Link } from "gatsby";
 import Search from "components/search/Search";
+import { Helmet } from "react-helmet";
 
 type TemplateType = {
   children: React.ReactNode;
@@ -81,6 +82,24 @@ const Template: React.FC<TemplateType> = (props) => {
   return (
     <>
       <GlobalStyle />
+      <Helmet>
+        <title>Isdebrave's Blog</title>
+
+        <meta
+          name="description"
+          content="새로 얻은 개발 지식을 저장하는 창고입니다."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
+
+        {/* 대부분의 SNS에서 사용할 수 있는 데이터 */}
+        <meta property="og:title" content="Isdebrave's Blog" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="<http://www.my-website.com/>" />
+        <meta property="og:image" content="<http://my-website.com/image.jpg>" />
+        <meta property="og:description" content="WebSite Description" />
+        <meta property="og:site_name" content="Site Name, i.e. Moz" />
+      </Helmet>
       <TopNavigation>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <MenuButton onClick={menuHandler({ ref, open: true, setIsMenuOpen })}>

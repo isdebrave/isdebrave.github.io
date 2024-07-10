@@ -2,7 +2,9 @@ import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `MY BLOG`,
+    title: `Isdebrave's Blog`,
+    description: `새로 얻은 개발 지식을 저장하는 창고입니다.`,
+    author: `Isdebrave`,
     siteUrl: `https://www.yourdomain.tld`,
   },
   graphqlTypegen: true,
