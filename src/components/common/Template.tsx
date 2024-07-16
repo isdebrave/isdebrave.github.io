@@ -83,6 +83,8 @@ const Template: React.FC<TemplateType> = (props) => {
     <>
       <GlobalStyle />
       <Helmet>
+        <html lang="ko" />
+
         <title>Isdebrave's Blog</title>
 
         <meta
@@ -99,6 +101,11 @@ const Template: React.FC<TemplateType> = (props) => {
         <meta property="og:image" content="<http://my-website.com/image.jpg>" />
         <meta property="og:description" content="WebSite Description" />
         <meta property="og:site_name" content="Site Name, i.e. Moz" />
+
+        <meta
+          name="google-site-verification"
+          content="dXHX7-TiTJQO_hnWngVrUbvTe-amzRkcrcfGB0yplio"
+        />
       </Helmet>
       <TopNavigation>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>

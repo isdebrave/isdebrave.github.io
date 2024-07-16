@@ -5,7 +5,7 @@ const config: GatsbyConfig = {
     title: `Isdebrave's Blog`,
     description: `새로 얻은 개발 지식을 저장하는 창고입니다.`,
     author: `Isdebrave`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://isdebrave.github.io`,
   },
   graphqlTypegen: true,
   plugins: [
@@ -60,8 +60,15 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://www.yourdomain.tld`,
+        siteUrl: `https://isdebrave.github.io`,
         stripQueryString: true,
+      },
+    },
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        policy: [{ userAgent: "*", allow: "/" }],
       },
     },
   ],
