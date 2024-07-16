@@ -98,7 +98,7 @@ const Template: React.FC<TemplateType> = (props) => {
         <meta property="og:title" content="Isdebrave's Blog" />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="<http://www.my-website.com/>" />
-        {/* <meta property="og:image" content="<http://my-website.com/image.jpg>" /> */}
+        <meta property="og:image" content="<http://my-website.com/image.jpg>" />
 
         <meta property="og:description" content="WebSite Description" />
         <meta property="og:site_name" content="Site Name, i.e. Moz" />
